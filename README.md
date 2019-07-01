@@ -1,1 +1,2 @@
 # ResumeClassifier
+When a producer/director plans for new movie production, she usually arrange auditions for casting purposes. There will of course be many applicants to apply. Without reading the resumes or recommendations for all of the applicants through, how could she quickly filter out those disqualified applicants? of course, this system addresses this problem by automatically reading the reference letters through and recommend the producer/director about promising candidates to arrange an audition.
