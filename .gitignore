@@ -1,0 +1,9 @@
+# Logs and databases #
+######################
+/data
+*.log
+*.json
+*.csv
+
+# pycashe #
+__pycache__/
