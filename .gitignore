@@ -1,6 +1,6 @@
 # Logs and databases #
 ######################
-/data
+# /data
 *.log
 *.json
 # *.csv
