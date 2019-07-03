@@ -17,7 +17,7 @@ def extract_section_words(text):
     words = numpy.array(words).flatten().tolist()
 
     # Filter stop words and stem
-    words = [word.lower() for word in words]
+    words = [word.lower() for word in words if word in word.isalpha()]
     words = [word for word in words if word not in stop_words]
     words = [porter.stem(word) for word in words]
     

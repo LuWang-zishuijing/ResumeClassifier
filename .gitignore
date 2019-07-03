@@ -1,9 +1,9 @@
 # Logs and databases #
 ######################
-# /data
+/data
 *.log
 *.json
-# *.csv
+*.csv
 
 # pycashe #
 __pycache__/
