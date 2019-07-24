@@ -1,107 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
 
-  <head>
-
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>Resume recommendations</title>
-
-  </head>
-
-  <style>
-  .home-btn {
-    display: content;
-    color: white;
-    font-weight: bold;
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: middle;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    border: 1vw solid transparent;
-    padding: 0.375vw 0.75vw;
-    font-size: 1.6vw;
-    line-height: 1.5vw;
-    border-radius: 1.6vw;
-    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-  }
-  .move-button {
-    display: flex;
-    justify-content: center;
-    margin-top: .7vw;
-  }
-  .buttons {
-  display: flex;
-  flex-wrap: nowrap;
-  justify-content: center;
-  }
-  button {
-              padding: 1vh 2vw;
-              background-color: #0ac17f;
-              color: white;
-              border-radius: 1.6vw;
-              border-color:#0ac17f;
-              padding-left: 1.2vw;
-              padding-right: 1.2vw;
-              font-size: 1.8vw;
-              font-weight: bold;
-          }
-          button:hover {
-              background-color: rgba(0,0,0,0);
-              color: #0ac17f;
-              border-color: #0ac17f;
-              border: .2vw solid #0ac17f;
-          }
-
-  </style>
-
-  <body>
-
-    <!-- Navigation -->
-    <nav class="navbar navbar-light bg-light static-top">
-      <div class="container">
-        <a class="navbar-brand" href=https://github.com/zishuijingw/ResumeClassifier>Resume recommendations</a>
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="http://0.0.0.0:8080/#">WebSiteName</a>
       </div>
-      <br>
-    </nav>
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="http://0.0.0.0:8080/home#">Home</a></li>
+        <li class="active"><a href="https://github.com/zishuijingw/ResumeClassifier">Github</a></li>
+        <li class="active"><a href="#">Q&A</a></li>
+      </ul>
+    </div>
+</nav>
 
-    <!-- Main -->
-    <header class="masthead text-white text-center">
-      <div class="overlay"></div>
-      <div class="container">
-        <div class="row">
-          <div class="col-xl-9 mx-auto">
-            <h3 class="mb-5">Resume recommendations</h3>
-          </div>
-          <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
-              <div class="form-row">
-                <div class="col-12 col-md-3">
-                  <div class= "buttons center">
+<body>
+
+
+  <!-- Main -->
+  <header class="masthead text-white text-center">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-xl-9 mx-auto">
+          <h3 class="mb-5">Resume recommendations</h3>
+        </div>
+        <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
+            <div class="form-row">
+              <div class="col-12 col-md-3">
+
+                <div class= "buttons center">
                     <form action='/resume', method='POST'>
                     <button type="submit" class="move-button" style= "width: 32vw;">Get recommendations based on Resume!</button>
                     </form>
-                      
-                      <div>
+                    <br>
 
-                      </div>
-                      
+                    </br>
                     <form action='/image', method='POST'>
                     <button type="submit" class="move-button" style= "width: 32vw;" >Get recommendations based on the image or demo!</button>
                     </form>
-                  </div>
                 </div>
+
               </div>
-          </div>
+            </div>
         </div>
       </div>
-    </header>
+  </header>
 
-  </body>
+</body>
 
 </html>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,15 +8,15 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
-
+  
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
       <div class="navbar-header">
-        <a class="navbar-brand" href="http://0.0.0.0:8080/#">WebSiteName</a>
+        <a class="navbar-brand" href="#">WebSiteName</a>
       </div>
       <ul class="nav navbar-nav">
-        <li class="active"><a href="http://0.0.0.0:8080/home#">Home</a></li>
-        <li class="active"><a href="https://github.com/zishuijingw/ResumeClassifier">Github</a></li>
+        <li class="active", method='POST'><a href="#">Home</a></li>
+        <li class="active"><a href="#">Page</a></li>
         <li class="active"><a href="#">Q&A</a></li>
       </ul>
     </div>
@@ -29,9 +30,14 @@
         <form action= '/home', method='POST'>
             <button type="submit" class="move-button">Home</button>
         </form>
-        <li>upload file to get recommendations</li>
-        <li>upload file to get recommendations</li>
-        <li>upload file to get recommendations</li>
+
+        <form action= '/resume', method='POST'>
+          <button type="submit" class="move-button">Go Back</button>
+        </form>
+
+        <li>Get recommendations</li>
+        <li>Get recommendations</li>
+        <li>Get recommendations</li>
       </div>
       <br>
     </nav>
@@ -47,21 +53,11 @@
           <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
               <div class="form-row">
                 <div class="col-12 col-md-3">
-                  <div class= "buttons center">
 
 
-                    <form action='/recommendations', method="post">
+                    <form method="post">
                         <textarea rows=10 cols=100 name="user_input_test"> 待填充</textarea>
-                        <button type="submit" class="move-button" style= "width: 32vw;">Submit</button>
-
-                        <br>
-                        <table>
-                            
-                        </table>
-                        </br>
                     </form>
-
-                  </div>
                 </div>
           </div>
         </div>
