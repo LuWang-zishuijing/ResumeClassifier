@@ -23,36 +23,35 @@
 </nav>
 
 <div class="jumbotron text-center">
-    <h1>Resume recommendations</h1>
+    <h1>Actors & Actresses Recommendations</h1>
     <p>Resize this responsive page to see the effect!</p> 
 </div>
 
   <!-- Main -->
-  <header class="masthead text-white text-center">
-    <div class="overlay"></div>
-    <div class="container">
-      <div class="row">
-        <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
-            <div class="form-row">
-              <div class="col-12 col-md-3">
+  <div class="container">
+    <h2>Recommendations Method</h2>
+    <p>The form below contains three different recommendations method</p>
 
-                <div class= "buttons center">
-                    <form action='/resume', method='POST'>
-                    <button type="submit" class="move-button" style= "width: 32vw;">Get recommendations based on Resume!</button>
-                    </form>
-                    <br>
+      <div class= "buttons center">
+          <form action='/resume', method='POST'>
+            <button type="submit" class="btn btn-lg btn-block" style= "width: 32vw;">Get Recommendations Based on Resume!</button>
+          </form>
+          <br>
 
-                    </br>
-                    <form action='/image', method='POST'>
-                    <button type="submit" class="move-button" style= "width: 32vw;" >Get recommendations based on the image or demo!</button>
-                    </form>
-                </div>
+          </br>
+          <form action='/script', method='POST'>
+            <button type="button" class="btn btn-lg btn-block" style= "width: 32vw;">Get Recommendations Based on the Script!</button>
+          </form>
+          <br>
 
-              </div>
-            </div>
-        </div>
+          </br>
+          <form action='/image', method='POST'>
+            <button type="button" class="btn btn-lg btn-block" style= "width: 32vw;">Get Recommendations Based on the Image or Demo!</button>
+          </form>
       </div>
-  </header>
+
+  </div>
+
 
 </body>
 
