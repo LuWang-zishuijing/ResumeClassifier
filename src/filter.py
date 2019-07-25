@@ -1,11 +1,11 @@
 import os
 import glob
 import json
-from fuzzywuzzy import process
+from fuzzywuzzy import process, fuzz
 import shutil
 import random
 
-num_selection = 1000
+num_selection = 10000
 input_location = './output/succeed'
 output_selected = './output/selected'
 
@@ -15,11 +15,29 @@ output_selected_dir = os.path.realpath(output_selected)
 if not os.path.exists(output_selected_dir):
     os.makedirs(output_selected_dir)
 
+def find_most_likely_standard_title(title):
+    scores = [fuzz.ratio(standard, title) for standard  in look_for_sections ]
+
+    max_score = max(scores)
+
+    max_score_index = scores.index(max_score)
+
+    return look_for_sections[max_score_index]
+
+def map_to_standard_title(titles):
+    return [find_most_likely_standard_title(title) for title in titles]
+
 def has_expected_sections(json_object):
     extracted = extract_expected_sections_titles(json_object)
 
     deduped_extracted = set(extracted)
-    return len(deduped_extracted) == len(look_for_sections)
+
+    map_to_standard_titles = map_to_standard_title(deduped_extracted)
+
+    if len(deduped_extracted) == len(look_for_sections):
+        return True
+        
+    return ('section 0' in map_to_standard_titles) and ('Career' in map_to_standard_titles)
 
 def extract_expected_sections_titles(json_object):
     titles = [section['title'] for section in json_object['sections']]
@@ -52,9 +70,18 @@ def process_one_json(folder):
 if __name__ == "__main__":
     all_folders = list(os.listdir(input_location))
 
+    all_folders_count = len(all_folders)
+
     count = 0
 
+    print()
+
     while count < num_selection or len(all_folders) == 0:
+
+        if len(all_folders) == 0:
+            print('drained all folders')
+            break; 
+
         pick = random.choice(all_folders)
 
         all_folders.remove(pick)
@@ -63,9 +90,9 @@ if __name__ == "__main__":
 
         if result:
             count+=1
-            print(f'process {pick} succeeded')
+            print(f'\r process {pick} succeeded {count} / {num_selection} / {all_folders_count}', end="")
         else:
-            print(f'process {pick} failed')
+            print(f'\r process {pick} failed {count} / {num_selection} / {all_folders_count}', end="")
 
 
     
