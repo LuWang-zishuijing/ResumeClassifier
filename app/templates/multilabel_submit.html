@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
+
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="http://0.0.0.0:8080/#">WebSiteName</a>
+      </div>
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="http://0.0.0.0:8080/home#">Home</a></li>
+        <li class="active"><a href="https://github.com/zishuijingw/ResumeClassifier">Github</a></li>
+        <li class="active"><a href="#">Q&A</a></li>
+      </ul>
+    </div>
+</nav>
+
+  <body>
+
+      <div class="jumbotron text-center">
+          <h1>Actors & Actresses Recommendations</h1>
+          <h2>Option One: Based on the type of movies candidate has participated in</h2> 
+      </div>
+
+    <nav class="navbar navbar-light bg-light static-top">
+      <div class="container">
+        <li>Step 1: Type a Resume Information or Upload a Resume</li>
+        <li>Step 2: Submit Resume</li>
+        <li>Step 3: Get Recommendations</li>
+      </div>
+    </nav>
+
+    <div class="container">
+        <h3>Resume Information</h3>
+        <p>the form below contains a textarea for typing a Resume Information</p>
+        <form>
+          <div class="form-group">
+            <label for="comment">Resume:</label>
+            <textarea class="form-control" rows="5" id="comment"></textarea>
+          </div>
+        </form>
+
+        <p>the form below for uploading a Resume File</p>
+        <form>
+            <div class="row">
+                <div class="col-sm-10">
+                  <span class="control-fileupload">
+                    <label for="file1" class="text-left">Please choose a file on your computer.</label>
+                    <input type="file" id="file1">
+                  </span>
+                </div>
+                <div class="col-sm-2">  
+                  <button type="button" class="btn btn-block">
+                    <i class="icon-upload icon-white"></i> Upload
+                  </button>
+                </div>
+              </div>
+        </form>
+        <form >
+          
+        </form>
+
+    </div>
+
+    <div class="container">
+        <form action='/multilabel_recommendations', method='POST'>
+          <button type="submit" class="btn btn-lg btn-block" style= "width: 32vw;">Submit</button>
+        </form>
+    </div>
+
+
+  </body>
+
+</html>

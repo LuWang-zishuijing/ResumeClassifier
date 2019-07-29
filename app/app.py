@@ -7,11 +7,8 @@ import time
 import threading
 import os
 
-
-
 app = Flask(__name__)
 Bootstrap(app)
-
 
 # connect database
 # app.config["MONGO_URI"] = "mongodb://127.0.0.1:27017/database_predictions"
@@ -25,15 +22,29 @@ def index():
 def home():
     return render_template('home.html')
 
+# method
+@app.route('/multilabel', methods=['GET','POST'])
+def multilabel():
+    return render_template('multilabel_submit.html')
 
-@app.route('/resume', methods=['GET','POST'])
-def nlp():
-    return render_template('resume.html')
+# temp
+@app.route('/results_lda', methods=['GET','POST'])
+def lda():
+    return render_template('results_lda.html')
+
+# @app.route('/resume', methods=['GET','POST'])
+# def multilabel():
+#     return render_template('resume.html')
 
 
-@app.route('/recommendations', methods=['GET','POST'])
+# results
+@app.route('/multilabel_recommendations', methods=['GET','POST'])
 def recmomendations():
-    return render_template('recommendations.html')
+    return render_template('multilabel_recommendations.html')
+
+# @app.route('/recommendations', methods=['GET','POST'])
+# def recmomendations():
+#     return render_template('recommendations.html')
 
 
 if __name__ == '__main__':
