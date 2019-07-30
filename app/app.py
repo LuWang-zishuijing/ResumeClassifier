@@ -25,6 +25,8 @@ def home():
 # method
 @app.route('/multilabel', methods=['GET','POST'])
 def multilabel():
+
+
     return render_template('multilabel_submit.html')
 
 # temp
@@ -40,7 +42,28 @@ def lda():
 # results
 @app.route('/multilabel_recommendations', methods=['GET','POST'])
 def recmomendations():
-    return render_template('multilabel_recommendations.html')
+    predictions = [
+        ['Adventure', '√'],
+        ['Romance', ''],
+        ['History', ''],
+        ['Crime', ''],
+        ['Fantasy', '√'],
+        ['Horror', ''],
+        ['Mystery', '√'],
+        ['Sci-Fi', ''],
+        ['Thriller', ''],
+        ['Action', ''],
+        ['War', ''],
+        ['Animation', ''],
+        ['Comedy', ''],
+        ['Biography', ''],
+        ['Sport', ''],
+        ['Musical', ''],
+        ['Music', ''],
+        ['Family', ''],
+        ['Drama', '']
+        ]
+    return render_template('multilabel_recommendations.html', predictions=predictions)
 
 # @app.route('/recommendations', methods=['GET','POST'])
 # def recmomendations():

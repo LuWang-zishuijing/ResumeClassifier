@@ -40,8 +40,26 @@
             <h4 class="media-heading">Candidate name</h4>
             <p> </p>
           </div>
+          <hr>
+          <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Labals</th>
+                  <th>yes or no</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for pre in predictions %}
+                  <tr>
+                    <td>{{pre.0}}</td>
+                    <td>{{pre.1}}</td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+
         </div>
-        <hr>
+        
 
   </body>
 
