@@ -78,20 +78,18 @@ def multilabel_recmomendations():
         # get url that the user has entered
         try:
             url = request.form['user_input_test']
-            f = request.files['fileupload']
-            f.save(secure_filename(f.filename))
-            print(f)
+            # f = request.files['fileupload']
+            # f.save(secure_filename(f.filename))
+            # print(f)
         except:
             errors.append(
                 "Unable to get URL. Please make sure it's valid and try again."
             )
-    if url != '':
-        if len(url) <= 250:
-            reminder = 'Please input more than 250 words'
-            return render_template('multilabel_submit.html', reminder=reminder)
-        else:
-            data_raw = url
-    # elif f
+    if url != '' and len(url) <= 250:
+        reminder = 'Please input more than 250 words'
+        return render_template('multilabel_submit.html', reminder=reminder)
+    else:
+        data_raw = url
 
     test_data = clean_date(data_raw)
 
