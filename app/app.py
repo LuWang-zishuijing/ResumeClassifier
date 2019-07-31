@@ -75,29 +75,30 @@ def multilabel_recmomendations():
     reminder = ''
     url = ''
     if request.method=='POST':
-        # get url that the user has entered
+        # get url
         try:
-            url = request.form['user_input_test']
-            # f = request.files['fileupload']
-            # f.save(secure_filename(f.filename))
-            # print(f)
+            # url = request.form['user_input_test']
+            f = request.files['fileupload']
+            f.save(secure_filename(f.filename))
+            print(f)
         except:
             errors.append(
                 "Unable to get URL. Please make sure it's valid and try again."
             )
+
     if url != '' and len(url) <= 250:
         reminder = 'Please input more than 250 words'
         return render_template('multilabel_submit.html', reminder=reminder)
     else:
         data_raw = url
 
-    test_data = clean_date(data_raw)
+    # test_data = clean_date(data_raw)
 
-    data = tf_idf(test_data)
+    # data = tf_idf(test_data)
 
-    predictions = perdicet_category(data)
+    # predictions = perdicet_category(data)
 
-    # text_prediction = predictions[]
+    predictions = {'a': 1 ,'b':0,'c':1}
 
     return render_template('multilabel_recommendations.html', errors=errors, predictions=predictions)
 
