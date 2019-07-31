@@ -11,22 +11,20 @@
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
       <div class="navbar-header">
-        <a class="navbar-brand" href="http://0.0.0.0:8080/#">WebSiteName</a>
+          <a class="navbar-brand" href="http://0.0.0.0:8080/#">WebSiteName</a>
+          <a class="navbar-brand" href="http://0.0.0.0:8080/home#">Home</a>
       </div>
       <ul class="nav navbar-nav">
-        <li class="active"><a href="http://0.0.0.0:8080/home#">Home</a></li>
+        <li class="active"><a href="http://0.0.0.0:8080/home#">Go Back</a></li>
         <li class="active"><a href="https://github.com/LuWang0211/ResumeClassifier">Github</a></li>
-        <li class="active"><a href="#">Q&A</a></li>
       </ul>
     </div>
 </nav>
 
   <body>
-
-      <div class="jumbotron text-center">
-          <h1>Actors & Actresses Recommendations</h1>
-          <h2>Option One: Based on the type of movies candidate has participated in</h2> 
-      </div>
+    <div class="jumbotron text-center">
+        <h2>Based on the type of movies candidate has participated in</h2> 
+    </div>
 
     <nav class="navbar navbar-light bg-light static-top">
       <div class="container">
@@ -38,19 +36,19 @@
 
     <div class="container">
         <h3>Resume Information</h3>
-
         <label for="Resume">Resume(upload method 1):</label>
         <p>the form below contains a textarea for typing a Resume Information</p>
-          <div class="form-group">
-            <textarea class="form-control" rows="5" name="user_input_resume" id="user_input_test"></textarea>
-            <p></p>
-            <form action='/multilabel_recommendations', method='POST'>
-              <button type="submit" class="btn btn-lg btn-block" style= "width: 32vw;">Submit</button>
-            </form>
-          </div>
+        <p>{{reminder}}</p>
+        <form action='/multilabel_recommendations', method='POST'>
+          <textarea class="form-control" rows="5" name="user_input_test" id="user_input_test">
+          Please input more than 250 words
+          </textarea>
+          <p></p>
+          <button type="submit" class="btn btn-lg btn-block" style= "width: 32vw;">Submit</button>
+        </form>
 
         <label for="Resume">Resume(upload method 2):</label>
-        <p>the form below for uploading a Resume File</p>
+        <p>choose file from computer, upload a Resume</p>
         <form>
             <div class="row">
                 <div class="col-sm-10">
@@ -72,7 +70,7 @@
     </div>
 
     <div class="container">
-        <form action='/multilabel_recommendations'>
+        <form action='/multilabel_recommendations', method='POST'>
           <button type="submit" class="btn btn-lg btn-block" style= "width: 32vw;">Submit</button>
         </form>
     </div>
