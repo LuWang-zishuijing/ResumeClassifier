@@ -6,6 +6,12 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <script src="{{ url_for('static', filename='all.js') }}"></script>
+  <style>
+    .list-group-item {
+      text-overflow: ellipsis; overflow: hidden; white-space: nowrap;
+    }
+  </style>
 </head>
 
 <body>
@@ -29,9 +35,34 @@
   <!-- Main -->
   <div class="container">
       <h2>Option One</h2>
-      <h3>Based on the type of movies candidate has participated in</h3>
+      <h3>Based on the type of movies a candidate has cast a role in</h3>
       <div class="panel panel-default">
-        <div class="panel-body">Each actor/actress has a field of performance that they are good at. This recommendation method is based on their resume, from which recommendations system classifies their performance film type.</div>
+        <div class="panel-body">Each actor/actress has a field of performance art that they are good at.
+          <p>
+           This recommendation method is based on their resume, from which recommendations system finds out the film types a cabdidate 
+           will most likely succeed in.
+          </p>
+           <p>
+              This model is trained on 6,405 well-known actors and actresses's data. The following are examples of genres 
+              of movies and the actors or actresses who ever cast a role in this type of movies. 
+            </p>
+          <div>
+              <div class="row" style="margin-right: 6px">
+                {% for key, value in sample_movie_genres.items() %}
+                <div class="col-md-2">
+                  <div class="panel panel-default genre" style="width: 18rem; " data-key="{{key}}">
+                      <div class="panel-heading">{{value.name}}</div>
+                      <div class="panel-body" style="height: 18em">
+                          <ul class="list-group">
+                          </ul>
+                      </div>
+                    </div>
+                </div>
+                {% endfor %}
+              </div>
+          </div>  
+        </div>
+        
       </div>
       <form action='/multilabel', method='POST'>
         <button type="submit" class="btn btn-lg btn-block" style= "width: 32vw;">Get Recommendations Based on Option 1!</button>
