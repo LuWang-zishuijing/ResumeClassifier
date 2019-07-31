@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, jsonify
 from flask_bootstrap import Bootstrap
 from flask_pymongo import PyMongo
 import pandas as pd
@@ -8,6 +8,17 @@ import threading
 import os
 from data_clean import cleanHtml, cleanPunc, keepAlpha, removeStopWords, stemming, tf_idf
 from model import perdicet_category
+from pymongo import MongoClient
+import json
+from bson import ObjectId
+
+
+class JSONEncoder(json.JSONEncoder):
+    def default(self, o):
+        if isinstance(o, ObjectId):
+            return str(o)
+        return json.JSONEncoder.default(self, o)
+
 
 app = Flask(__name__)
 Bootstrap(app)
@@ -19,6 +30,22 @@ Bootstrap(app)
 @app.route('/')
 def index():
     return render_template('index.html')
+
+@app.route('/api/v1.0/actor_sample/<string:genre>', methods=['GET'])
+def api_actor_sample(genre):
+    client = MongoClient()
+    client = MongoClient('localhost', 27017)
+
+    db = client.resumeclassifier
+    collection = db.actor_labels
+
+    result = list(collection.aggregate([
+        { "$match": { "is_action": 1 } },
+        { "$sample": { "size": 3 } }
+    ]))
+
+    client.close()
+    return jsonify([JSONEncoder().encode(item) for item in result])
 
 @app.route('/home', methods=['POST','GET'])
 def home():
@@ -87,6 +114,8 @@ def lda():
 
 
 if __name__ == '__main__':
-
-    app.run(host='0.0.0.0', port=8080, debug=True)
+    if os.environ['USER'] == 'ubuntu':
+        app.run(host='0.0.0.0', port=8088, debug=True)
+    else:
+        app.run(host='0.0.0.0', port=8080, debug=True)
         
