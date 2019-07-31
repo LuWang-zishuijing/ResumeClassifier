@@ -15,8 +15,9 @@
         <a class="navbar-brand" href="#">WebSiteName</a>
       </div>
       <ul class="nav navbar-nav">
-        <li class="active", method='POST'><a href="#">Home</a></li>
-        <li class="active"><a href="#">Page</a></li>
+        <li class="active"><a href="http://0.0.0.0:8080/home#">Home</a></li>
+        <li class="active"><a href="http://0.0.0.0:8080/multilabel_submit#">Go back</a></li>
+        <li class="active"><a href="https://github.com/LuWang0211/ResumeClassifier">Github</a></li>
         <li class="active"><a href="#">Q&A</a></li>
       </ul>
     </div>
@@ -38,21 +39,22 @@
           </div> -->
           <div class="media-body">
             <h4 class="media-heading">Candidate name</h4>
-            <p> </p>
+            <tr>{{errors}}</tr>
+            <tr>{{results}}</tr>
           </div>
           <hr>
           <table class="table table-striped">
               <thead>
                 <tr>
                   <th>Labals</th>
-                  <th>yes or no</th>
+                  <th>yes(1) or no(0)</th>
                 </tr>
               </thead>
               <tbody>
-                {% for pre in predictions %}
+                {% for key in predictions %}
                   <tr>
-                    <td>{{pre.0}}</td>
-                    <td>{{pre.1}}</td>
+                    <td>{{key}}</td>
+                    <td>{{predictions[key]}}</td>
                   </tr>
                 {% endfor %}
               </tbody>
