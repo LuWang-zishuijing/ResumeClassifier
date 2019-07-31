@@ -9,7 +9,36 @@ from sklearn.pipeline import Pipeline
 from sklearn.metrics import accuracy_score
 from sklearn.multiclass import OneVsRestClassifier
 
-def perdicet_category(text_words):
+
+def tf_idf(test_data):
+    vectorizer_file_name = "./multi_models/vectorizer.pickle"
+    train_filr_name = "./multi_models/train_web.pickle"
+
+    vectorizer_uppickle = open(vectorizer_file_name, "rb") 
+    vectorizer_for_text = pickle.load(vectorizer_uppickle)
+    vectorizer_uppickle.close()
+
+    x_uppickle = open(train_filr_name, "rb") 
+    x_data = pickle.load(x_uppickle)
+    x_uppickle.close()
+    vectorizer_for_text.fit(x_data)
+    vectorizer_for_text.fit(test_data)
+
+    x =  vectorizer_for_text.transform(x_data)
+    data = vectorizer_for_text.transform(test_data)
+
+    return x, data
+
+def perdicet_category(data):
+
+    x = data[0]
+    test = data[1]
+
+    # print(x.shape, test.shape)
+
+    LogReg_pipeline = Pipeline([
+                ('clf', OneVsRestClassifier(LogisticRegression(solver='sag'), n_jobs=-1)),
+            ])
 
     categories_multi_lable = [
     'Adventure',
@@ -32,19 +61,15 @@ def perdicet_category(text_words):
     'Family',
     'Drama']
 
+    y = pd.read_csv('./multi_models/y_true.csv')
+
     predictions = dict((label,0) for label in categories_multi_lable)
 
     for category in categories_multi_lable:
+        # Training logistic regression model on train data
+        LogReg_pipeline.fit(x, y[category])
         
-        # open model file
-        model_file_name = "./multi_models/mulitlablemodel_" + category +".pickle"
+        # calculating test accuracy
+        predictions[category] = LogReg_pipeline.predict(test)
 
-        model = open(model_file_name, "rb") 
-        LogReg_pipeline_category = pickle.load(model)
-
-        # calculating prediction
-        perdicet_category_values = LogReg_pipeline_category.predict(text_words)
-
-        predictions[category] = perdicet_category_values
-
-    return prediction
+    return predictions

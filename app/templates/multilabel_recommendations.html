@@ -18,7 +18,6 @@
         <li class="active"><a href="http://0.0.0.0:8080/home#">Home</a></li>
         <li class="active"><a href="http://0.0.0.0:8080/multilabel#">Go back</a></li>
         <li class="active"><a href="https://github.com/LuWang0211/ResumeClassifier">Github</a></li>
-        <li class="active"><a href="#">Q&A</a></li>
       </ul>
     </div>
 </nav>
@@ -39,22 +38,28 @@
           </div> -->
           <div class="media-body">
             <h4 class="media-heading">Candidate name</h4>
+            {% if error == [] %}
             <tr>{{errors}}</tr>
-            <tr>{{results}}</tr>
+            {% endif %}
           </div>
           <hr>
           <table class="table table-striped">
               <thead>
                 <tr>
                   <th>Labals</th>
-                  <th>yes(1) or no(0)</th>
+                  <th>Yes/No</th>
                 </tr>
               </thead>
               <tbody>
                 {% for key in predictions %}
                   <tr>
                     <td>{{key}}</td>
-                    <td>{{predictions[key]}}</td>
+                    {% if predictions[key][0] == 0 %}
+                      <td> \ </td>
+                    {% endif %}
+                    {% if predictions[key][0] == 1 %}
+                    <td> √ </td>
+                    {% endif %}
                   </tr>
                 {% endfor %}
               </tbody>

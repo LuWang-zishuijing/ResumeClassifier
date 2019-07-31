@@ -36,6 +36,7 @@
 
     <div class="container">
         <h3>Resume Information</h3>
+
         <label for="Resume">Resume(upload method 1):</label>
         <p>the form below contains a textarea for typing a Resume Information</p>
         <p>{{reminder}}</p>
@@ -47,33 +48,25 @@
           <button type="submit" class="btn btn-lg btn-block" style= "width: 32vw;">Submit</button>
         </form>
 
+        <p></p>
+
         <label for="Resume">Resume(upload method 2):</label>
         <p>choose file from computer, upload a Resume</p>
-        <form>
-            <div class="row">
-                <div class="col-sm-10">
-                  <span class="control-fileupload">
-                    <input type="file" id="fileupload">
-                  </span>
-                </div>
-                <div class="col-sm-2">  
-                  <button type="button" class="btn btn-block">
-                    <i class="icon-upload icon-white"></i> Upload
-                  </button>
-                </div>
-              </div>
-        </form>
-        <form >
-          
-        </form>
-
-    </div>
-
-    <div class="container">
         <form action='/multilabel_recommendations', method='POST'>
-          <button type="submit" class="btn btn-lg btn-block" style= "width: 32vw;">Submit</button>
+          <div class="col-sm-10">
+            <span class="control-fileupload">
+              <input type="file" name="fileupload" id="fileupload">
+            </span>
+          </div>
+          <p></p>
+            <button type="submit" class="btn btn-lg btn-block" style= "width: 32vw;">Submit</button>
         </form>
+      </div>
+
+
     </div>
+
+    
 
 
   </body>
