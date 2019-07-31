@@ -1,18 +1,12 @@
 import numpy as np
 import pandas as pd
-from pandas import Series, DataFrame
-import matplotlib.pyplot as plt
-import scipy.stats as stats
 import nltk
 from nltk.corpus import stopwords
 from nltk.stem.snowball import SnowballStemmer
 import re
 import sys
 import warnings
-from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction.text import TfidfVectorizer
-
-# clean data
 
 if not sys.warnoptions:
     warnings.simplefilter("ignore")
@@ -62,9 +56,11 @@ def stemming(sentence):
     stemSentence = stemSentence.strip()
     return stemSentence
 
-# TF-IDF
-def tf_idf(user_input_test):
-    vectorizer = TfidfVectorizer(strip_accents='unicode', analyzer='word', ngram_range=(1,3), norm='l2')
-    vectorizer.fit(user_input_test)
-    text_words = vectorizer.transform(user_input_test)
-    return text_words
+def clean_date(data_raw):
+    test_data = pd.Series(np.array(data_raw.lower()))
+    test_data = test_data.apply(cleanHtml)
+    test_data = test_data.apply(cleanPunc)
+    test_data = test_data.apply(keepAlpha)
+    test_data = test_data.apply(removeStopWords)
+    test_data = test_data.apply(stemming)
+    return test_data

@@ -6,8 +6,8 @@ import numpy as np
 import time
 import threading
 import os
-from data_clean import cleanHtml, cleanPunc, keepAlpha, removeStopWords, stemming, tf_idf
-from model import perdicet_category
+from data_clean import cleanHtml, cleanPunc, keepAlpha, removeStopWords, stemming, clean_date
+from model import tf_idf, perdicet_category
 
 app = Flask(__name__)
 Bootstrap(app)
@@ -40,38 +40,35 @@ def multilabel():
 def multilabel_recmomendations():
     errors=[]
     reminder = ''
+    url = ''
     if request.method=='POST':
         # get url that the user has entered
         try:
             url = request.form['user_input_test']
+            f = request.files['fileupload']
+            f.save(secure_filename(f.filename))
+            print(f)
         except:
             errors.append(
                 "Unable to get URL. Please make sure it's valid and try again."
             )
+    if url != '':
+        if len(url) <= 250:
+            reminder = 'Please input more than 250 words'
+            return render_template('multilabel_submit.html', reminder=reminder)
+        else:
+            data_raw = url
+    # elif f
 
-    data_raw = url
+    test_data = clean_date(data_raw)
 
-    if len(data_raw) <= 250:
-        reminder = 'Please input more than 250 words'
-        return render_template('multilabel_submit.html', reminder=reminder)
+    data = tf_idf(test_data)
 
-    test_data = pd.Series(np.array(data_raw.lower()))
-    test_data = test_data.apply(cleanHtml)
-    test_data = test_data.apply(cleanPunc)
-    test_data = test_data.apply(keepAlpha)
-    test_data = test_data.apply(removeStopWords)
-    test_data = test_data.apply(stemming)
+    predictions = perdicet_category(data)
 
-    print(test_data)
-    # data = tf_idf(test_data)
+    # text_prediction = predictions[]
 
-    # predictions = perdicet_category(data)
-
-    predictions = pd.read_csv('predictions_example.csv')
-
-    prediction = predictions.loc[0].to_dict()
-
-    return render_template('multilabel_recommendations.html', errors=errors, predictions=prediction)
+    return render_template('multilabel_recommendations.html', errors=errors, predictions=predictions)
 
 
 # temp

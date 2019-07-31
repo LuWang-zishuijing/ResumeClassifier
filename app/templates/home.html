@@ -28,25 +28,23 @@
 
   <!-- Main -->
   <div class="container">
-      <h2>Option One</h2>
-      <h3>Based on the type of movies candidate has participated in</h3>
+      <h2>Option One: Based on the type of movies candidate has participated in</h2>
       <div class="panel panel-default">
         <div class="panel-body">Each actor/actress has a field of performance that they are good at. This recommendation method is based on their resume, from which recommendations system classifies their performance film type.</div>
       </div>
       <form action='/multilabel', method='POST'>
-        <button type="submit" class="btn btn-lg btn-block" style= "width: 32vw;">Get Recommendations Based on Option 1!</button>
+        <button type="submit" class="btn btn-lg btn-block" style= "width: 32vw;">Get Recommendations</button>
       </form>
   </div>
 
   <div class="container">
-      <h2>Option two</h2>
-      <h3>Based on LDA topical model</h3>
+      <h2>Option two: Based on LDA topical model</h2>
       <div class="panel panel-default">
         <!-- <div class="panel-heading">Based on LDA topical model</div> -->
         <div class="panel-body">The LDA topic model is unsupervised learning of the actor/actress information. It tries to establish a classification method different from the existing movie genres and then recommending from another view.</div>
       </div>
       <form action='/results_lda', method='POST'>
-        <button type="submit" class="btn btn-lg btn-block" style= "width: 32vw;">Get Recommendations Based on Option 2!</button>
+        <button type="submit" class="btn btn-lg btn-block" style= "width: 32vw;">Get Recommendations</button>
       </form>
   </div>
 
