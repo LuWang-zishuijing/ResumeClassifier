@@ -82,19 +82,26 @@
             <button type="submit" class="btn btn-lg btn-block" style= "width: 32vw;">Submit</button>
         </form>
 
+        <br />
 
-        <h3>Resume Result</h3>
-        <table>
-        <tbody>
-          {% for key in predictions %}
-            <tr>
-              {% if predictions[key][0] == 1 %}
-                <td>{{key}}</td>
-              {% endif %}
-            </tr>
-          {% endfor %}
-        </tbody>
-        </table>
+        
+        <div class="row">
+          <div class="panel panel-default prediction-result">
+            <div class="panel-heading">
+                <h3 class="panel-title">Prediction Result:</h3>
+            </div>
+            {% if predictions|length > 0 %}
+            <div class="panel-body">According to the prediction, the candiate can most likely be categorized to the following topics:
+              {% for key in predictions %}
+                  {% if predictions[key][0] == 1 %}
+                    <span class="badge badge-primary">{{key}}</span>
+                  {% endif %}
+              {% endfor %}
+            </div>
+            {% endif %}
+          </div>
+        </div>
+
       </div>
 
     </div>
