@@ -3,17 +3,15 @@ from flask_bootstrap import Bootstrap
 from flask_pymongo import PyMongo
 import pandas as pd
 import numpy as np
-import time
-import threading
-import os
+import time, threading, os, gensim, logging, json
 from data_clean import cleanHtml, cleanPunc, keepAlpha, removeStopWords, stemming, clean_date
 from model import tf_idf, perdicet_category
 from pymongo import MongoClient
-import json
 from bson import ObjectId
 from werkzeug.utils import secure_filename
 from flask import send_from_directory
 from werkzeug import SharedDataMiddleware
+from lda import preprocess
 
 class JSONEncoder(json.JSONEncoder):
     def default(self, o):
@@ -38,6 +36,12 @@ app.add_url_rule('/uploads/<filename>', 'uploaded_file',
 app.wsgi_app = SharedDataMiddleware(app.wsgi_app, {
     '/uploads':  app.config['UPLOAD_FOLDER']
 })
+
+model_path = os.path.abspath(os.path.join(os.path.dirname(__file__), './model/lda_simple_8743.model'))
+dictionary_path = os.path.abspath(os.path.join(os.path.dirname(__file__), './model/lda_dictionary'))
+
+lda_model = gensim.models.LdaMulticore.load(model_path)
+lda_dictionary = gensim.corpora.dictionary.Dictionary.load(dictionary_path)
 
 # connect database
 # app.config["MONGO_URI"] = "mongodb://127.0.0.1:27017/database_predictions"
@@ -163,6 +167,30 @@ def lda():
 # @app.route('/recommendations', methods=['GET','POST'])
 # def recmomendations():
 #     return render_template('recommendations.html')
+
+@app.route('/recommendations_lda', methods=['GET'])
+def recommendations_lda():
+    return render_template('recommendations_lda.html')
+
+@app.route('/recommendations_lda', methods=['POST'])
+def recommendations_lda_post():
+    resume = request.form['resume']
+
+    words_doc = preprocess(resume)
+
+    bow_doc = lda_dictionary.doc2bow(words_doc)
+
+    vector = lda_model[bow_doc]
+
+    json_object = [{
+        "topic_id": e[0],
+        "score": str(e[1])
+    } 
+    for e in vector]
+
+    app.logger.info('resume', vector)
+
+    return jsonify({ 'result': json_object})
 
 
 if __name__ == '__main__':

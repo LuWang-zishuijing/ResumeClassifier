@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <script src="{{ url_for('static', filename='lda_all.js') }}"></script>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <a class="navbar-brand" href="/">WebSiteName</a>
+            <a class="navbar-brand" href="/home#">Home</a>
+          </div>
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="https://github.com/zishuijingw/ResumeClassifier">Github</a></li>
+          </ul>
+        </div>
+    </nav>
+
+    <!-- Main -->
+    <div class="container">
+      <div class="row">
+          <div class="panel panel-default">
+              <div class="panel-body">
+                <p>
+                  This recommendation method is based on a LDA model that classifies candiates' resumes into the following 6 topic groups.
+                </p>
+                <div class="row">
+                    <div class="col-lg-4">&nbsp;</div>
+                    <div class="col-lg-4 align-self-center">
+                      <ul class="list-group topics" ></ul>
+                    </div>
+                    <div class="col-lg-4">&nbsp;</div>
+                </div>
+                  
+              </div>
+          </div>
+      </div>
+        
+
+      <div class="row">
+        <div class="col-xl-9 mx-auto">
+          <h3 class="mb-5">Please paste the candidate's resume here:</h3>
+        </div>
+        <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
+            <div class="form-row">
+              <div class="col-12 col-md-4">
+                  <form method="post">
+                      <textarea id="resume" rows=10 cols=100 name="user_input_test"> 待填充</textarea>
+                  </form>
+
+                  <button class="btn btn-lg btn-block" style= "width: 32vw; position: relative" onclick="submit_resume()">
+                    Submit <span class="spinner" style="right: 3em">.</span></button>
+              </div>
+            </div>
+        </div>
+      </div>
+
+      <br/>
+
+      <div class="row">
+        <div class="panel panel-default prediction-result">
+          <div class="panel-heading">
+              <h3 class="panel-title">Prediction Result:</h3>
+          </div>
+          <div class="panel-body">According to the prediction, the candiate can most likely be categorized to the following topics:
+            <p id="result-topics"></p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </body>
+
+</html>

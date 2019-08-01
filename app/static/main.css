@@ -5,3 +5,68 @@
 .navbar {
     margin-bottom: 0px
 }
+
+.choosen {
+    filter: brightness(95%);
+}
+
+
+.btn-primary {
+    background-color: rgb(221, 221, 221);
+    border-width: 0;
+    color: rgb(51, 51, 51);    
+}
+
+.btn-primary:hover {
+    color: rgb(51, 51, 51);    
+    background-color: rgb(221, 221, 221);
+    filter: brightness(95%);
+}
+
+.badge-primary {
+    background-color: #007bff;
+}
+
+.badge-secondary {
+    background-color: #6c757d;
+}
+
+.badge-success {
+    background-color: #28a745;
+}
+
+.badge-danger {
+    background-color: #dc3545;
+} 
+
+.badge-warning{
+    color: #212529;
+    background-color: #ffc107;
+} 
+
+.badge-info {
+    color: #fff;
+    background-color: #17a2b8
+}
+
+@keyframes spinner {
+    to {transform: rotate(360deg);}
+  }
+   
+  .spinner:before {
+    content: '';
+    box-sizing: border-box;
+    position: absolute;
+    top: 50%;
+    /* left: 50%; */
+    right: 1em;
+    width: 20px;
+    height: 20px;
+    margin-top: -10px;
+    margin-left: -10px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    border-top-color: #07d;
+    border-bottom-color: #07d;
+    animation: spinner .8s ease infinite;
+  }
