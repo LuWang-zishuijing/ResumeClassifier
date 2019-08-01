@@ -20,6 +20,12 @@ x_uppickle = open(train_filr_name, "rb")
 x_data = pickle.load(x_uppickle)
 x_uppickle.close()
 
+LogReg_pipeline = Pipeline([
+    ('clf', OneVsRestClassifier(LogisticRegression(solver='sag'), n_jobs=-1)),
+])
+
+y = pd.read_csv('./multi_models/y_true.csv')
+
 def tf_idf(test_data):
 
     vectorizer_for_text.fit(x_data)
@@ -37,11 +43,7 @@ def perdicet_category(data):
 
     # print(x.shape, test.shape)
 
-    LogReg_pipeline = Pipeline([
-                ('clf', OneVsRestClassifier(LogisticRegression(solver='sag'), n_jobs=-1)),
-            ])
-
-    categories_multi_lable = [
+    categories_multi_label = [
     'Adventure',
     'Romance',
     'History',
@@ -62,11 +64,10 @@ def perdicet_category(data):
     'Family',
     'Drama']
 
-    y = pd.read_csv('./multi_models/y_true.csv')
 
-    predictions = dict((label,0) for label in categories_multi_lable)
+    predictions = dict((label,0) for label in categories_multi_label)
 
-    for category in categories_multi_lable:
+    for category in categories_multi_label:
         # Training logistic regression model on train data
         LogReg_pipeline.fit(x, y[category])
         
