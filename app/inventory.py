@@ -31,8 +31,12 @@ movie_genres = {
     "film_noir": {"name": "Film-Noir", "field_name": "is_film_noir"}
 }
 
+rare_genres = ["film_noir", 'game_show', 'talk_show', 'short', 'reality_tv']
+
 def find_random_genres(k):
-    random_keys = random.sample(movie_genres.keys(), k)
+    all_keys = [key for key in movie_genres.keys() if key not in rare_genres]
+
+    random_keys = random.sample(all_keys, k)
 
     new_dict = {}
 
