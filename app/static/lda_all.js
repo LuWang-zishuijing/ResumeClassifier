@@ -35,6 +35,8 @@ function submit_resume() {
     $spinner.show();
     $resultPanel.hide();
 
+    $('#result-topics').empty();
+
     $.ajax({
         type: "POST",
         url: '/recommendations_lda',
