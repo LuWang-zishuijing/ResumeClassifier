@@ -66,6 +66,4 @@ $(document).ready(() => {
     for (let domElement of all_cards){
         requestAndFill(domElement);
     }
-
-    console.log('hi')
 });

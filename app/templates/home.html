@@ -14,8 +14,8 @@
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
       <div class="navbar-header">
-        <a class="navbar-brand" href="http://0.0.0.0:8080/#">WebSiteName</a>
-        <a class="navbar-brand" href="http://0.0.0.0:8080/home#">Home</a>
+        <a class="navbar-brand" href="/">WebSiteName</a>
+        <a class="navbar-brand" href="/home#">Home</a>
       </div>
       <ul class="nav navbar-nav">
         <li class="active"><a href="https://github.com/zishuijingw/ResumeClassifier">Github</a></li>
@@ -38,8 +38,8 @@
            will most likely succeed in.
           </p>
            <p>
-              This model is trained on 6,405 well-known actors and actresses's data. The following are examples of genres 
-              of movies and the actors or actresses who ever cast a role in this type of movies. 
+              This model is trained on 6,405 well-known actors and actresses's data. The following are examples of movie genres
+               and the actors or actresses who ever cast a role in the corresponding movie genre. 
             </p>
           <div>
               <div class="row" style="margin-right: 6px">
@@ -71,7 +71,8 @@
         <div class="panel-body">The LDA topic model is unsupervised learning of the actor/actress information. It tries to establish a classification method different from the existing movie genres and then recommending from another view.</div>
       </div>
       <form action='/results_lda', method='POST'>
-        <button type="submit" class="btn btn-lg btn-block" style= "width: 32vw;">Get Recommendations</button>
+        <a class="btn btn-primary btn-lg" href="/results_lda" role="button" style="width: 32vw;">Explore LDA</a>
+        <a class="btn btn-primary btn-lg" href="/recommendations_lda" role="button" style="width: 32vw;">Get Recommendations</a>
       </form>
   </div>
 
