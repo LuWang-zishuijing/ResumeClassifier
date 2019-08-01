@@ -38,7 +38,7 @@
     <div class="container">
         <h3>Resume Information</h3>
 
-        <!-- <label for="Resume1">Resume(upload method 1):</label> -->
+        <label for="Resume1">Resume(upload method 1):</label>
         <p>the form below contains a textarea for typing a Resume Information</p>
         {% if reminder1 != 'wait type' %}
           <li>{{reminder1}}</li>
@@ -56,7 +56,7 @@
         <label for="Resume2">Resume(upload method 2):</label>
         <p>choose file from computer, upload a Resume</p>
         <p>Allowed file types are txt, pdf, doc, docx</p>
-        {% if reminder2 != ' ' %}
+        {% if reminder2 != 'wait type' %}
           <li>{{reminder2}}</li>
         {% endif %}
 
