@@ -38,9 +38,11 @@
     <div class="container">
         <h3>Resume Information</h3>
 
-        <label for="Resume">Resume(upload method 1):</label>
+        <!-- <label for="Resume1">Resume(upload method 1):</label> -->
         <p>the form below contains a textarea for typing a Resume Information</p>
-        <p>{{reminder}}</p>
+        {% if reminder1 != 'wait type' %}
+          <li>{{reminder1}}</li>
+        {% endif %}
         <form action='/multilabel_recommendations', method='POST'>
           <textarea class="form-control" rows="5" name="user_input_test" id="user_input_test">
           Please input more than 250 words
@@ -51,19 +53,49 @@
 
         <p></p>
 
-        <label for="Resume">Resume(upload method 2):</label>
+        <label for="Resume2">Resume(upload method 2):</label>
         <p>choose file from computer, upload a Resume</p>
-        <form action='/multilabel_recommendations', method='POST'>
+        <p>Allowed file types are txt, pdf, doc, docx</p>
+        {% if reminder2 != ' ' %}
+          <li>{{reminder2}}</li>
+        {% endif %}
+
+        <p>
+          {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            <ul class=flashes>
+            {% for message in messages %}
+              <li>{{ message }}</li>
+            {% endfor %}
+            </ul>
+            {% endif %}
+          {% endwith %}
+        </p>
+
+        <form action='/upload_file', method='POST', enctype="multipart/form-data">
           <div class="col-sm-10">
             <span class="control-fileupload">
-              <input type="file" name="fileupload" id="fileupload">
+              <input type="file" name="file" id="file">
             </span>
           </div>
           <p></p>
             <button type="submit" class="btn btn-lg btn-block" style= "width: 32vw;">Submit</button>
         </form>
-      </div>
 
+
+        <h3>Resume Result</h3>
+        <table>
+        <tbody>
+          {% for key in predictions %}
+            <tr>
+              {% if predictions[key][0] == 1 %}
+                <td>{{key}}</td>
+              {% endif %}
+            </tr>
+          {% endfor %}
+        </tbody>
+        </table>
+      </div>
 
     </div>
 

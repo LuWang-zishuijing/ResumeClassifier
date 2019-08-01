@@ -26,23 +26,24 @@
   <body>
 
     <div class="jumbotron text-center">
-        <h1>Actors & Actresses Recommendations</h1>
+        <h1>Actors Recommendation</h1>
     </div>
 
     <div class="container">
-        <h2>Recommendations Result</h2>
-        <p>Based on the type of movies candidate has participated in, the following are the performance areas that candidates may be in</p><br>
+        <h2>Recommendation Result</h2>
+        <p>Based on the type of movies a candidate has cast a role in, the following are the performance areas that candidates may be in</p><br>
         
         <div class="media">
           <!-- <div class="media-left">
             <img src="img_avatar1.png" class="media-object" style="width:60px">
           </div> -->
           <div class="media-body">
-            <h4 class="media-heading">Candidate name</h4>
+            <h4 class="media-heading">Candidate Name</h4>
             {% if error == [] %}
             <tr>{{errors}}</tr>
             {% endif %}
           </div>
+
           <hr>
           <table class="table table-striped">
               <thead>
@@ -54,12 +55,12 @@
               <tbody>
                 {% for key in predictions %}
                   <tr>
-                    <td>{{key}}</td>
+                  <td>{{key}}</td>
                     {% if predictions[key][0] == 0 %}
                       <td> \ </td>
                     {% endif %}
                     {% if predictions[key][0] == 1 %}
-                    <td> √ </td>
+                      <td> √ </td>
                     {% endif %}
                   </tr>
                 {% endfor %}

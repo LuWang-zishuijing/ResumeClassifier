@@ -9,18 +9,19 @@ from sklearn.pipeline import Pipeline
 from sklearn.metrics import accuracy_score
 from sklearn.multiclass import OneVsRestClassifier
 
+vectorizer_file_name = "./multi_models/vectorizer.pickle"
+train_filr_name = "./multi_models/train_web.pickle"
+
+vectorizer_uppickle = open(vectorizer_file_name, "rb") 
+vectorizer_for_text = pickle.load(vectorizer_uppickle)
+vectorizer_uppickle.close()
+
+x_uppickle = open(train_filr_name, "rb") 
+x_data = pickle.load(x_uppickle)
+x_uppickle.close()
 
 def tf_idf(test_data):
-    vectorizer_file_name = "./multi_models/vectorizer.pickle"
-    train_filr_name = "./multi_models/train_web.pickle"
 
-    vectorizer_uppickle = open(vectorizer_file_name, "rb") 
-    vectorizer_for_text = pickle.load(vectorizer_uppickle)
-    vectorizer_uppickle.close()
-
-    x_uppickle = open(train_filr_name, "rb") 
-    x_data = pickle.load(x_uppickle)
-    x_uppickle.close()
     vectorizer_for_text.fit(x_data)
     vectorizer_for_text.fit(test_data)
 

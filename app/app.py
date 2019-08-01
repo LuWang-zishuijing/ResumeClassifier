@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, jsonify
+from flask import Flask, flash, request, render_template, jsonify, redirect, url_for
 from flask_bootstrap import Bootstrap
 from flask_pymongo import PyMongo
 import pandas as pd
@@ -11,6 +11,9 @@ from model import tf_idf, perdicet_category
 from pymongo import MongoClient
 import json
 from bson import ObjectId
+from werkzeug.utils import secure_filename
+from flask import send_from_directory
+from werkzeug import SharedDataMiddleware
 
 class JSONEncoder(json.JSONEncoder):
     def default(self, o):
@@ -21,8 +24,20 @@ class JSONEncoder(json.JSONEncoder):
 
 from inventory import find_random_genres, movie_genres
 
+UPLOAD_FOLDER = '~/Project/Galavine/ResumeClassifier/app/uploads'
+ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'doc', 'docx'])
+
 app = Flask(__name__)
 Bootstrap(app)
+app.secret_key = "secret key"
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
+
+app.add_url_rule('/uploads/<filename>', 'uploaded_file',
+                 build_only=True)
+app.wsgi_app = SharedDataMiddleware(app.wsgi_app, {
+    '/uploads':  app.config['UPLOAD_FOLDER']
+})
 
 # connect database
 # app.config["MONGO_URI"] = "mongodb://127.0.0.1:27017/database_predictions"
@@ -73,24 +88,22 @@ def multilabel():
 def multilabel_recmomendations():
     errors=[]
     reminder = ''
-    url = ''
+    url = 'wait type'
     if request.method=='POST':
         # get url
+        url = ''
         try:
             url = request.form['user_input_test']
-            # f = request.files['fileupload']
-            # f.save(secure_filename(f.filename))
-            # print(f)
         except:
             errors.append(
                 "Unable to get URL. Please make sure it's valid and try again."
             )
 
-    # if url != '' and len(url) <= 250:
-    #     reminder = 'Please input more than 250 words'
-    #     return render_template('multilabel_submit.html', reminder=reminder)
-    # else:
-    #     data_raw = url
+    if url != 'wait type' and url != 'Please input more than 250 words' and len(url) <= 250:
+        reminder = 'Please input more than 250 words'
+        return render_template('multilabel_submit.html', reminder1=reminder)
+    else:
+        data_raw = url
 
     data_raw = url
 
@@ -100,17 +113,52 @@ def multilabel_recmomendations():
 
     predictions = perdicet_category(data)
 
-    # predictions = {'a': 1 ,'b':0,'c':1}
+    # predictions = {'url': '1' , 'b': '0', 'c': '1'} # for testing
 
-    return render_template('multilabel_recommendations.html', errors=errors, predictions=predictions)
+    # return render_template('multilabel_recommendations.html', errors=errors, predictions=predictions)
+    return render_template('multilabel_submit.html', errors=errors, predictions=predictions)
 
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+@app.route('/upload_file', methods=['GET', 'POST'])
+def upload_from():
+    if request.method == 'POST':
+        # check if the post request has the file part
+        # if 'file' not in request.files:
+        #     flash('No file part')
+        #     return redirect(request.url)
+        reminder = 'will upload'
+        file = request.files['file']
+        if file.filename == '':
+            # flash('No file selected for uploading')
+            # return redirect(request.url)
+            reminder = 'No file selected for uploading'
+            return render_template('multilabel_submit.html', reminder2=reminder)
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            x = file.read()
+            data_raw = x
+            test_data = clean_date(data_raw)
+            data = tf_idf(test_data)
+            predictions = perdicet_category(data)
+            # reminder = 'Loading'
+            x = ''
+            file.close()
+            return render_template('multilabel_submit.html', predictions=predictions)
+            # file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            # flash('Loading')
+            # return redirect(request.url)
+        else:
+            # flash('Allowed file types are txt, pdf, doc, docx')
+            # return redirect(request.url)
+            reminder = 'NAllowed file types are txt, pdf, doc, docx'
+            return render_template('multilabel_submit.html', reminder2=reminder)
 
 # temp
 @app.route('/results_lda', methods=['GET','POST'])
 def lda():
     return render_template('results_lda.html')
-
-
 
 # @app.route('/recommendations', methods=['GET','POST'])
 # def recmomendations():
@@ -118,6 +166,10 @@ def lda():
 
 
 if __name__ == '__main__':
+
+    
+    app.config['SESSION_TYPE'] = 'filesystem'
+
     if ('USER' in  os.environ) and (os.environ['USER'] == 'ubuntu'):
         app.run(host='0.0.0.0', port=8088, debug=True)
     else:
