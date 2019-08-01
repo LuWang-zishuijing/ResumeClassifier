@@ -5,7 +5,7 @@ import pandas as pd
 import numpy as np
 import time, threading, os, gensim, logging, json
 from data_clean import cleanHtml, cleanPunc, keepAlpha, removeStopWords, stemming, clean_date
-from model import tf_idf, perdicet_category
+from model import perdicet_category
 from pymongo import MongoClient
 from bson import ObjectId
 from werkzeug.utils import secure_filename
@@ -113,11 +113,7 @@ def multilabel_recmomendations():
 
     test_data = clean_date(data_raw)
 
-    data = tf_idf(test_data)
-
-    predictions = perdicet_category(data)
-
-    # predictions = {'url': '1' , 'b': '0', 'c': '1'} # for testing
+    predictions = perdicet_category(test_data)
 
     # return render_template('multilabel_recommendations.html', errors=errors, predictions=predictions)
     return render_template('multilabel_submit.html', errors=errors, predictions=predictions)
@@ -144,8 +140,7 @@ def upload_from():
             x = file.read()
             data_raw = x
             test_data = clean_date(data_raw)
-            data = tf_idf(test_data)
-            predictions = perdicet_category(data)
+            predictions = perdicet_category(test_data)
             # reminder = 'Loading'
             x = ''
             file.close()
@@ -163,10 +158,6 @@ def upload_from():
 @app.route('/results_lda', methods=['GET','POST'])
 def lda():
     return render_template('results_lda.html')
-
-# @app.route('/recommendations', methods=['GET','POST'])
-# def recmomendations():
-#     return render_template('recommendations.html')
 
 @app.route('/recommendations_lda', methods=['GET'])
 def recommendations_lda():

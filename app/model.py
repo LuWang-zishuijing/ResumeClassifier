@@ -2,48 +2,14 @@ import numpy as np
 import pandas as pd
 from pandas import Series, DataFrame
 
-import pickle, os
+import pickle, os, sys
 
 from sklearn.linear_model import LogisticRegression
 from sklearn.pipeline import Pipeline
 from sklearn.metrics import accuracy_score
 from sklearn.multiclass import OneVsRestClassifier
 
-vectorizer_file_name = os.path.abspath(os.path.join(os.path.dirname(__file__), "./multi_models/vectorizer.pickle"))
-train_filr_name = os.path.abspath(os.path.join(os.path.dirname(__file__), "./multi_models/train_web.pickle"))
-
-vectorizer_uppickle = open(vectorizer_file_name, "rb") 
-vectorizer_for_text = pickle.load(vectorizer_uppickle)
-vectorizer_uppickle.close()
-
-x_uppickle = open(train_filr_name, "rb") 
-x_data = pickle.load(x_uppickle)
-x_uppickle.close()
-
-LogReg_pipeline = Pipeline([
-    ('clf', OneVsRestClassifier(LogisticRegression(solver='sag'), n_jobs=-1)),
-])
-
-y = pd.read_csv('./multi_models/y_true.csv')
-
-def tf_idf(test_data):
-
-    vectorizer_for_text.fit(x_data)
-    vectorizer_for_text.fit(test_data)
-
-    x =  vectorizer_for_text.transform(x_data)
-    data = vectorizer_for_text.transform(test_data)
-
-    return x, data
-
-def perdicet_category(data):
-
-    x = data[0]
-    test = data[1]
-
-    # print(x.shape, test.shape)
-
-    categories_multi_label = [
+categories_multi_label = [
     'Adventure',
     'Romance',
     'History',
@@ -64,14 +30,29 @@ def perdicet_category(data):
     'Family',
     'Drama']
 
+model_file_names = [ "./model/LogReg_pipeline_" + label +".pickle" for label in categories_multi_label]
 
+model_files = [os.path.abspath(os.path.join(os.path.dirname(__file__), model_file_name )) for model_file_name in model_file_names]
+
+classifiers = []
+
+for model_file in model_files:
+    model_file_object = open(model_file, "rb") 
+    classifier = pickle.load(model_file_object)
+    model_file_object.close()
+
+    classifiers.append(classifier)
+
+def perdicet_category(data):
     predictions = dict((label,0) for label in categories_multi_label)
 
-    for category in categories_multi_label:
-        # Training logistic regression model on train data
-        LogReg_pipeline.fit(x, y[category])
-        
-        # calculating test accuracy
-        predictions[category] = LogReg_pipeline.predict(test)
+    index = 0
+    for classifier in classifiers:
+        prediction = classifier.predict(data)
+
+        category = categories_multi_label[index]
+        predictions[category] = prediction
+
+        index = index + 1
 
     return predictions
