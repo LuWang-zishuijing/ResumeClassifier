@@ -2,15 +2,15 @@ import numpy as np
 import pandas as pd
 from pandas import Series, DataFrame
 
-import pickle
+import pickle, os
 
 from sklearn.linear_model import LogisticRegression
 from sklearn.pipeline import Pipeline
 from sklearn.metrics import accuracy_score
 from sklearn.multiclass import OneVsRestClassifier
 
-vectorizer_file_name = "./multi_models/vectorizer.pickle"
-train_filr_name = "./multi_models/train_web.pickle"
+vectorizer_file_name = os.path.abspath(os.path.join(os.path.dirname(__file__), "./multi_models/vectorizer.pickle"))
+train_filr_name = os.path.abspath(os.path.join(os.path.dirname(__file__), "./multi_models/train_web.pickle"))
 
 vectorizer_uppickle = open(vectorizer_file_name, "rb") 
 vectorizer_for_text = pickle.load(vectorizer_uppickle)
