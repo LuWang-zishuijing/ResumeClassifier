@@ -5,14 +5,18 @@
 *.json
 *.csv
 
+/lda_model
+/EDA
 
 # pycashe #
 __pycache__/
 .ipynb_checkpoints
 *.pyc
+*.pyc
 
 # pickle #
 *.pickle
+*.model
 
 # testfile #
 *.txt

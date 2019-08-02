@@ -20,12 +20,17 @@
             <a class="navbar-brand" href="/home#">Home</a>
           </div>
           <ul class="nav navbar-nav">
+            <li class="active"><a href="http://0.0.0.0:8080/home#">Go Back</a></li>
             <li class="active"><a href="https://github.com/zishuijingw/ResumeClassifier">Github</a></li>
           </ul>
         </div>
     </nav>
 
     <!-- Main -->
+    <div class="jumbotron text-center">
+        <h2>Based on LDA topical model</h2> 
+    </div>
+
     <div class="container">
       <div class="row">
           <div class="panel panel-default">
@@ -54,7 +59,7 @@
             <div class="form-row">
               <div class="col-12 col-md-4">
                   <form method="post">
-                      <textarea id="resume" rows=10 cols=100 name="user_input_test"> 待填充</textarea>
+                      <textarea id="resume" rows=10 cols=100 name="user_input_test"> Please input words</textarea>
                   </form>
 
                   <button class="btn btn-lg btn-block" style= "width: 32vw; position: relative" onclick="submit_resume()">
@@ -71,7 +76,7 @@
           <div class="panel-heading">
               <h3 class="panel-title">Prediction Result:</h3>
           </div>
-          <div class="panel-body">According to the prediction, the candiate can most likely be categorized to the following topics:
+          <div class="panel-body">According to the prediction, the candidate can most likely be categorized to the following topics:
             <p id="result-topics"></p>
           </div>
         </div>

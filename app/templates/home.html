@@ -30,11 +30,11 @@
 
   <!-- Main -->
   <div class="container">
-      <h2>Option One: Based on the type of movies a candidate has cast a role in</h2>
+      <h2>Option One: Based on the type of movies a candidate has acted in</h2>
       <div class="panel panel-default">
         <div class="panel-body">Each actor/actress has a field of performance art that they are good at.
           <p>
-           This recommendation method is based on their resume, from which recommendations system finds out the film types a cabdidate 
+           This recommendation method is based on their resume, from which recommendations system finds out the film types a candidate 
            will most likely succeed in.
           </p>
            <p>
@@ -68,13 +68,15 @@
       <h2>Option two: Based on LDA topical model</h2>
       <div class="panel panel-default">
         <!-- <div class="panel-heading">Based on LDA topical model</div> -->
-        <div class="panel-body">The LDA topic model is unsupervised learning of the actor/actress information. It tries to establish a classification method different from the existing movie genres and then recommending from another view.</div>
+        <div class="panel-body">The LDA topic model is unsupervised learning of the actor/actress information. It tries to group together similiar actors based on the text in their resumes</div>
       </div>
       <form action='/results_lda', method='POST'>
         <a class="btn btn-primary btn-lg" href="/results_lda" role="button" style="width: 30vw;">Explore LDA</a>
+        <p></p>
         <a class="btn btn-primary btn-lg" href="/recommendations_lda" role="button" style="width: 30vw;">Get Recommendations</a>
       </form>
   </div>
+  <br></br>
 
 </body>
 

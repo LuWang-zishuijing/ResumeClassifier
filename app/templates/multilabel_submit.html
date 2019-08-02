@@ -24,7 +24,7 @@
 
   <body>
     <div class="jumbotron text-center">
-        <h2>Based on the type of movies candidate has participated in</h2> 
+        <h2>Based on the type of movies a candidate has acted in</h2> 
     </div>
 
     <nav class="navbar navbar-light bg-light static-top">
@@ -39,9 +39,9 @@
         <h3>Resume Information</h3>
 
         <label for="Resume1">Resume(upload method 1):</label>
-        <p>the form below contains a textarea for typing a Resume Information</p>
+        <h4>Please paste the candidate's resume here:</h4>
         {% if reminder1 != 'wait type' %}
-          <li>{{reminder1}}</li>
+          <p>{{reminder1}}</p>
         {% endif %}
         <form action='/multilabel_recommendations', method='POST'>
           <textarea class="form-control" rows="5" name="user_input_test" id="user_input_test">
@@ -54,10 +54,9 @@
         <p></p>
 
         <label for="Resume2">Resume(upload method 2):</label>
-        <p>choose file from computer, upload a Resume</p>
-        <p>Allowed file types are txt only</p>
+        <h4>Please choose a file from computer. Allowed file types are txt only</h4>
         {% if reminder2 != 'wait type' %}
-          <li>{{reminder2}}</li>
+          <p>{{reminder2}}</p>
         {% endif %}
 
         <p>
@@ -78,7 +77,7 @@
               <input type="file" name="file" id="file">
             </span>
           </div>
-          <p></p>
+          <br></br>
             <button type="submit" class="btn btn-lg btn-block" style= "width: 32vw;">Submit</button>
         </form>
 
